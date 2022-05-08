@@ -2,17 +2,6 @@
 pragma solidity ^0.8.4;
 
 contract Registration {
-
-    uint immutable bmw = 0.2 ether;
-    uint immutable mercedes = 0.2 ether;
-    uint immutable audi = 0.2 ether;
-    uint immutable gmc = 0.15 ether;
-    uint immutable chevrolet = 0.15 ether;
-    uint immutable ford = 0.15 ether;
-    uint immutable toyota = 0.10 ether;
-    uint immutable honda = 0.10 ether;
-    uint immutable nissan = 0.10 ether;
- 
     // Inputs for car
     struct Car {
         string carMake;
@@ -31,15 +20,17 @@ contract Registration {
     //Mapping
     mapping(address => Car) private insuree;
 
+    uint ID;
+
     // Function to register car
     function registerCar (string memory _carMake, string memory _carModel, uint16 _carYear, uint16 _mileage, string memory _licensePlate) public {
         Car storage car = insuree[msg.sender];
         car.carMake = _carMake;
         car.carModel = _carModel;
         car.carYear = _carYear;
-        car.carID += 1;
         car.mileage = _mileage;
         car.licensePlate = _licensePlate;
+        ID += 1;
     }
 
     // function viewRegistration () public view returns(Car memory) {
@@ -64,7 +55,6 @@ contract Registration {
     // Function to get price by make
     function getPriceMake() internal returns(uint) {
         Car memory car = insuree[msg.sender];
-        uint price;
 
         bytes8 carMake = bytes8(keccak256(abi.encodePacked(car.carMake)));
         bytes8 BMW = bytes8(keccak256(abi.encodePacked("BMW")));
@@ -77,35 +67,33 @@ contract Registration {
         bytes8 Honda = bytes8(keccak256(abi.encodePacked("Honda"))); 
         bytes8 Nissan = bytes8(keccak256(abi.encodePacked("Nissan")));
 
-        if (carMake == BMW) {
-            price = bmw;
+        if (carMake == BMW){
+            return 0.2 ether;
         }
         if (carMake == Mercedes) {
-            price = mercedes;
+            return 0.2 ether;
         }
         if (carMake == Audi) {
-            price = audi;
+            return 0.2 ether;
         }
         if (carMake == GMC) {
-            price = gmc;
+            return 0.15 ether;
         }
         if (carMake == Chevrolet) {
-            price = chevrolet;
+            return 0.15 ether;
         }
         if (carMake == Ford) {
-            price = ford;
+            return 0.15 ether;
         }
         if (carMake == Toyota) {
-            price = toyota;
+            return 0.10 ether;
         }
         if (carMake == Honda) {
-            price = honda;
+            return 0.10 ether;
         }
         if (carMake == Nissan) {
-            price = nissan;
+           return 0.10 ether;
         }
-        return price;
-
     }
 
     // Function to get price by mileage
