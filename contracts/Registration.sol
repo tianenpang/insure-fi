@@ -10,6 +10,7 @@ contract Registration {
         uint8 carID;
         uint16 mileage;
         string licensePlate;
+        uint registrationTime;
     }
 
     struct Policyholder {
@@ -22,16 +23,18 @@ contract Registration {
 
     uint ID;
 
-    // Function to register car
+   // Function to register car
     function registerCar (string memory _carMake, string memory _carModel, uint16 _carYear, uint16 _mileage, string memory _licensePlate) public {
         Car storage car = insuree[msg.sender];
         car.carMake = _carMake;
         car.carModel = _carModel;
         car.carYear = _carYear;
+        car.carID += 1;
         car.mileage = _mileage;
         car.licensePlate = _licensePlate;
-        ID += 1;
+        car.registrationTime = block.timestamp;
     }
+
 
     // function viewRegistration () public view returns(Car memory) {
     //     return insuree[msg.sender];
