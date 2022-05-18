@@ -2,13 +2,22 @@
 
 Insure Fi is a blockchain based car insurance decentralized application that allows users to buy car insurance and have policy claim.
 
+
+**Getting Started**:
+
+```bash
+pnpm install
+
+pnpm dev
+```
+
 **Problem**:
 
 Traditional car insurance companies due to the factors of high competition environment, clients do not have value for their money and data can be compromised.
 
 What InsureFi tends to do is to make car insurance data tamper proof, faster and eliminate the middle men while getting value for the premium paid.
 
-**User story** 
+**User story**
 
 User goes to the site → connects wallet → choose the type of service they need → car insurance/policy claims.
 
