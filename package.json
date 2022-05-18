@@ -75,8 +75,8 @@
     "eslint-plugin-n": "^15.2.0"
   },
   "engines": {
-    "pnpm": ">=7",
-    "node": ">=14.x"
+    "pnpm": ">=7.x",
+    "node": ">=16.x"
   },
   "browserslist": {
     "production": [
