@@ -74,10 +74,6 @@
     "chai": "^4.3.6",
     "eslint-plugin-n": "^15.2.0"
   },
-  "engines": {
-    "pnpm": ">=7.x",
-    "node": ">=16.x"
-  },
   "browserslist": {
     "production": [
       ">0.3%",
