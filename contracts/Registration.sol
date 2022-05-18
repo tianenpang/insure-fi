@@ -2,6 +2,9 @@
 pragma solidity ^0.8.4;
 
 contract Registration {
+
+uint streamRate = 0.01 * 10e18;
+
     // Inputs for car
     struct Car {
         string carMake;
@@ -11,6 +14,7 @@ contract Registration {
         uint16 mileage;
         string licensePlate;
         uint registrationTime;
+        uint insuranceRate;
     }
 
     struct Policyholder {
@@ -23,17 +27,6 @@ contract Registration {
 
     uint ID;
 
-   // Function to register car
-    function registerCar (string memory _carMake, string memory _carModel, uint16 _carYear, uint16 _mileage, string memory _licensePlate) public {
-        Car storage car = insuree[msg.sender];
-        car.carMake = _carMake;
-        car.carModel = _carModel;
-        car.carYear = _carYear;
-        car.carID += 1;
-        car.mileage = _mileage;
-        car.licensePlate = _licensePlate;
-        car.registrationTime = block.timestamp;
-    }
 
 
     // function viewRegistration () public view returns(Car memory) {
@@ -118,6 +111,28 @@ contract Registration {
     function getCost () public returns(uint) {
         return getPriceMileage() + getPriceYear() + getPriceMake();
     }
+    
+    function getInsuranceRate() public returns(bool){
+        Car memory car = insuree[msg.sender];
+
+        uint insuranceRate = getQuote() * 10000000 / 28*24*60*60;
+
+        if(streamRate >= insuranceRate) return true;
+
+    }
+    
+    // Function to register car
+    function registerCar (string memory _carMake, string memory _carModel, uint16 _carYear, uint16 _mileage, string memory _licensePlate) public {
+        Car storage car = insuree[msg.sender];
+        car.carMake = _carMake;
+        car.carModel = _carModel;
+        car.carYear = _carYear;
+        car.carID += 1;
+        car.mileage = _mileage;
+        car.licensePlate = _licensePlate;
+        car.registrationTime = block.timestamp;
+    }
+    
     
     // Function to make payment
     function makePayment () public payable {
