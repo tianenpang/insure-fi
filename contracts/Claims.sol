@@ -2,10 +2,17 @@
 pragma solidity ^0.8.4;
 
 import "./Registration.sol";
+import "./IERC20.sol";
 
-contract Claims is Registration {
+contract Claims is Registration{
 
+    IERC20 InsureToken;
 
+    constructor(
+        address _tokenAddress
+    ){
+        InsureToken = IERC20(_tokenAddress);
+    }
 
     struct Holder {
         string lastName;
@@ -14,19 +21,19 @@ contract Claims is Registration {
         uint8 age;
     }
 
-    struct Event {
-        string eventDate;
-        string eventTime;
-        string eventLocation;
-        string eventDescription;
-        string eventImgHash;
-    }
-
+    // struct Event {
+    //     string eventDate;
+    //     string eventTime;
+    //     string eventLocation;
+    //     string eventDescription;
+    //     string eventImgHash;
+    // }
 
     mapping(address => Holder) public holder;
-    mapping(address => Event) public accident;
+    // mapping(address => Event) public accident;
 
     function startClaim(string memory _lastName, uint16 _policyID, uint8 _yearsDriving, uint8 _age) public {
+        require(_policyID != 0 && _policyID == insuree[msg.sender].carID,"Invalid ID");
         Holder storage user = holder[msg.sender];
         user.lastName = _lastName;
         user.policyID = _policyID;
@@ -44,24 +51,24 @@ contract Claims is Registration {
     //     );
     // }
 
-    function vehicleInfo() public view returns(Car memory) {
-        return insuree[msg.sender];
-    }
+    // function vehicleInfo() public view returns(Car memory) {
+    //     return insuree[msg.sender];
+    // }
 
-    function eventInfo (string memory _eventDate, string memory _eventTime, string memory _eventLocation, string memory _eventDescription, string memory _eventImgHash) public {
-        Event storage e = accident[msg.sender];
-        e.eventDate = _eventDate;
-        e.eventTime = _eventTime;
-        e.eventLocation = _eventLocation;
-        e.eventDescription = _eventDescription;
-        e.eventImgHash = _eventImgHash;
-    }
+    // function eventInfo (string memory _eventDate, string memory _eventTime, string memory _eventLocation, string memory _eventDescription, string memory _eventImgHash) public {
+    //     Event storage e = accident[msg.sender];
+    //     e.eventDate = _eventDate;
+    //     e.eventTime = _eventTime;
+    //     e.eventLocation = _eventLocation;
+    //     e.eventDescription = _eventDescription;
+    //     e.eventImgHash = _eventImgHash;
+    // }
 
     function timeDifference() internal returns(uint){
         uint timeDifference = block.timestamp - insuree[msg.sender].registrationTime;
         return timeDifference / 60 * 60 * 24;
     }
-
+ 
     function getCostByAge() internal returns (uint) {
         Holder memory user = holder[msg.sender];
         uint age = user.age;
@@ -91,13 +98,12 @@ contract Claims is Registration {
     }
 
     function getClaims() public returns(uint) {
-        require(holder[msg.sender].policyID != 0, "Verify ID");
-        require(getInsuranceRate == true, "Filing failed");
+        require(getInsuranceRate() == true, "Filing failed");
         return getPriceYear() + getPriceMake() + getCostByAge() + getCostByYearsDriving() / timeDifference();
     }
 
     function makePayout() external {
-        (bool sent, ) = msg.sender.call{value: getClaims()}("");
+        (bool sent) = InsureToken.transfer(msg.sender, getClaims());
          require(sent, "Claims failed");
     }
 }

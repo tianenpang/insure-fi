@@ -3,14 +3,14 @@ pragma solidity ^0.8.4;
 
 contract Registration {
 
-uint streamRate = 0.01 * 10e18;
+    uint streamRate = 0.01 * 10e18;
 
     // Inputs for car
     struct Car {
         string carMake;
         string carModel;
         uint16 carYear;
-        uint8 carID;
+        uint16 carID;
         uint16 mileage;
         string licensePlate;
         uint registrationTime;
@@ -23,11 +23,10 @@ uint streamRate = 0.01 * 10e18;
     }
 
     //Mapping
-    mapping(address => Car) private insuree;
+    mapping(address => Car) internal insuree;
+    mapping(address => uint) public idNum;
 
-    uint ID;
-
-
+    uint16 policyID;
 
     // function viewRegistration () public view returns(Car memory) {
     //     return insuree[msg.sender];
@@ -115,7 +114,7 @@ uint streamRate = 0.01 * 10e18;
     function getInsuranceRate() public returns(bool){
         Car memory car = insuree[msg.sender];
 
-        uint insuranceRate = getQuote() * 10000000 / 28*24*60*60;
+        uint insuranceRate = getCost() * 10000000 / 28*24*60*60;
 
         if(streamRate >= insuranceRate) return true;
 
@@ -127,17 +126,16 @@ uint streamRate = 0.01 * 10e18;
         car.carMake = _carMake;
         car.carModel = _carModel;
         car.carYear = _carYear;
-        car.carID += 1;
         car.mileage = _mileage;
         car.licensePlate = _licensePlate;
         car.registrationTime = block.timestamp;
+        policyID += 1;
+        car.carID = policyID;
     }
     
-    
-    // Function to make payment
+    // Function to make payment in Matic
     function makePayment () public payable {
         require(msg.value == getCost(), "insufficient ether");
-
     }
 
 }
