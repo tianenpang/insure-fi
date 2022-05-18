@@ -49,7 +49,7 @@ const RegisterPage: NextPage = () => {
   return (
     <Fragment>
       <NextHead>
-        <title>Register - InsureFi a decentralized car insurance</title>
+        <title>Register | InsureFi - A decentralized car insurance</title>
       </NextHead>
       <RegisterHero />
       <form onSubmit={handleSubmit(registrationHandler)}>

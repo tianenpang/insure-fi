@@ -49,7 +49,7 @@ const ClaimPage: NextPage = () => {
   return (
     <Fragment>
       <NextHead>
-        <title>Claim - InsureFi a decentralized car insurance</title>
+        <title>Claim | InsureFi - A decentralized car insurance</title>
       </NextHead>
       <ClaimHero />
       <form onSubmit={handleSubmit(fileClaimHandler)}>

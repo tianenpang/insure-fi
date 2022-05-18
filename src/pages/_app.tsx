@@ -19,7 +19,7 @@ const App: NextPage<AppProps> = (props: AppProps) => {
             <NextHead>
               <base href="/" />
               <meta charSet="utf-8" />
-              <title>InsureFi</title>
+              <title>InsureFi - A decentralized car insurance</title>
               <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
             </NextHead>
             <BasicLayout>

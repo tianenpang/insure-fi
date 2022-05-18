@@ -64,6 +64,9 @@
       ]
     }
   },
+  "files": [
+    "./hardhat.config.ts"
+  ],
   "include": [
     "**/*.js",
     "**/*.ts",
