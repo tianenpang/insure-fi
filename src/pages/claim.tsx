@@ -3,7 +3,7 @@ import { Button, Container, Grid, Input, Loading, Spacer, Text, Textarea } from 
 import { mergeProps } from '@react-aria/utils';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
-import { ClaimHero } from '@components';
+import { CarMakeTip, ClaimHero } from '@components';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { NextPage } from 'next';
 
@@ -101,6 +101,8 @@ const ClaimPage: NextPage = () => {
           <Text h2 size={36} weight="bold">
             Vehicle Information
           </Text>
+          <Spacer y={4} />
+          <CarMakeTip />
           <Spacer y={4} />
           <Grid.Container css={{ p: '0px' }} gap={4} justify="center">
             <Grid {...gridItemProps}>

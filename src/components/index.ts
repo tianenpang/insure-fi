@@ -7,4 +7,5 @@ export * from './sections';
 export * from './provider';
 export * from './nav-item';
 export * from './quote-modal';
+export * from './car-make-tip';
 export * from './connect-button';

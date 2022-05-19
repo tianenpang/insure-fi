@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState } from 'react';
 import { Button, Grid, Input, Loading, Modal, Text } from '@nextui-org/react';
 import { mergeProps } from '@react-aria/utils';
 import { useForm } from 'react-hook-form';
+import { CarMakeTip } from '@components/car-make-tip';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { FC } from 'react';
 
@@ -63,20 +64,21 @@ export const QuoteModal: FC<QuoteModalProps> = (props: QuoteModalProps) => {
       >
         Get Quote
       </Button>
-      <Modal width="600px" open={visible} blur scroll closeButton aria-labelledby="get-quote-modal" onClose={() => closeHandler()}>
+      <Modal width="620px" open={visible} blur scroll closeButton aria-labelledby="get-quote-modal" onClose={() => closeHandler()}>
         <form onSubmit={handleSubmit(getQuoteHandler)}>
           <Modal.Header>
             <Text size={24} b>
               Get Quote
             </Text>
           </Modal.Header>
+          <CarMakeTip />
           <Modal.Body>
             <Grid.Container css={{ p: 0 }} gap={4}>
               <Grid {...gridItemProps}>
                 <Input
                   type="text"
-                  aria-label="Card Make"
-                  labelPlaceholder="Card Make"
+                  aria-label="Car Make"
+                  labelPlaceholder="Car Make"
                   color={errors.carMake && 'error'}
                   {...mergeProps(inputItemProps, register('carMake', { required: true, maxLength: 20 }))}
                 />
