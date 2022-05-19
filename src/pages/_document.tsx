@@ -21,13 +21,13 @@ const Document: NextPage<DocumentProps, DocumentInitialProps> = (props: Document
         <link rel="preload" href="/assets/fonts/Inter.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content={locale} />
-        <meta property="og:title" content="InsureFi" />
-        <meta name="twitter:title" content="InsureFi" />
-        <meta property="og:site_name" content="InsureFi" />
         <meta property="og:image:type" content="image/png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:image" content="/assets/image/og-image.png" />
         <meta name="twitter:image" content="/assets/image/og-image.png" />
+        <meta property="og:title" content="InsureFi - A decentralized car insurance" />
+        <meta name="twitter:title" content="InsureFi - A decentralized car insurance" />
+        <meta property="og:site_name" content="InsureFi - A decentralized car insurance" />
         <meta
           name="description"
           content="A decentralized car insurance company that aims at making car insurance coverage hassle free and smooth"
