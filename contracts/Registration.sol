@@ -14,7 +14,6 @@ contract Registration {
         uint16 mileage;
         string licensePlate;
         uint registrationTime;
-        uint insuranceRate;
     }
 
     struct Policyholder {
@@ -23,17 +22,15 @@ contract Registration {
     }
 
     //Mapping
-    mapping(address => Car) internal insuree;
-    mapping(address => uint) public idNum;
+    mapping(address => Car) public insuree;
+    mapping(address => uint16) public idNum;
+    mapping(address => bool) internal insured;
 
-    uint16 policyID;
+    uint16 public policyID = 1;
 
-    // function viewRegistration () public view returns(Car memory) {
-    //     return insuree[msg.sender];
-    // }
 
     // Function to get price by year
-    function getPriceYear() internal returns(uint){
+    function getPriceYear() internal view returns(uint){
         Car memory car = insuree[msg.sender];
         uint carYear = car.carYear;
         if (carYear <= 2005) {
@@ -48,7 +45,7 @@ contract Registration {
     }
    
     // Function to get price by make
-    function getPriceMake() internal returns(uint) {
+    function getPriceMake() internal view returns(uint) {
         Car memory car = insuree[msg.sender];
 
         bytes8 carMake = bytes8(keccak256(abi.encodePacked(car.carMake)));
@@ -63,52 +60,53 @@ contract Registration {
         bytes8 Nissan = bytes8(keccak256(abi.encodePacked("Nissan")));
 
         if (carMake == BMW){
-            return 0.2 ether;
+            return 0.02 ether;
         }
         if (carMake == Mercedes) {
-            return 0.2 ether;
+            return 0.02 ether;
         }
         if (carMake == Audi) {
-            return 0.2 ether;
+            return 0.02 ether;
         }
         if (carMake == GMC) {
-            return 0.15 ether;
+            return 0.015 ether;
         }
         if (carMake == Chevrolet) {
-            return 0.15 ether;
+            return 0.015 ether;
         }
         if (carMake == Ford) {
-            return 0.15 ether;
+            return 0.015 ether;
         }
         if (carMake == Toyota) {
-            return 0.10 ether;
+            return 0.010 ether;
         }
         if (carMake == Honda) {
-            return 0.10 ether;
+            return 0.010 ether;
         }
         if (carMake == Nissan) {
-           return 0.10 ether;
+           return 0.010 ether;
         }
     }
 
     // Function to get price by mileage
-    function getPriceMileage() internal returns(uint) {
+    function getPriceMileage() internal view returns(uint) {
         Car memory car = insuree[msg.sender];
         uint mileage = car.mileage;
         if (mileage <= 50000) {
-            return 0.3 ether;
+            return 0.03 ether;
         }
         if (mileage >50000 && mileage <= 100000) {
-            return 0.25 ether;
+            return 0.025 ether;
         }
         if (mileage > 100000) {
-            return 0.2 ether;
+            return 0.02 ether;
         }
     }
 
     // Function to get total cost
-    function getCost () public returns(uint) {
-        return getPriceMileage() + getPriceYear() + getPriceMake();
+    function getCost() public view returns(uint) {
+        uint totatCost = getPriceMileage() + getPriceYear() + getPriceMake();
+        return totatCost;
     }
     
     function getInsuranceRate() public returns(bool){
@@ -129,13 +127,15 @@ contract Registration {
         car.mileage = _mileage;
         car.licensePlate = _licensePlate;
         car.registrationTime = block.timestamp;
-        policyID += 1;
         car.carID = policyID;
+        idNum[msg.sender] = policyID;
+        policyID += 1;
     }
     
     // Function to make payment in Matic
     function makePayment () public payable {
         require(msg.value == getCost(), "insufficient ether");
+        insured[msg.sender] = true;
     }
 
 }
