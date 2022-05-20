@@ -10,4 +10,5 @@ export * from './nav-item';
 export * from './mobile-menu';
 export * from './quote-modal';
 export * from './car-make-tip';
+export * from './dnd-uploader';
 export * from './connect-button';

@@ -10,7 +10,7 @@ const needsInjectedWalletFallback = Boolean(
 );
 
 const { chains, provider } = configureChains(
-  [chain.polygonMumbai, chain.polygon, chain.mainnet],
+  [chain.mainnet, chain.polygon, chain.ropsten, chain.polygonMumbai],
   [apiProvider.alchemy(process.env.ALCHEMY_ID), apiProvider.fallback()]
 );
 

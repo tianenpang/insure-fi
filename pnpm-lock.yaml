@@ -45,6 +45,7 @@ specifiers:
   prettier-plugin-solidity: 1.0.0-beta.19
   react: ^17.0.2
   react-dom: ^17.0.2
+  react-dropzone: ^14.2.1
   react-hook-form: ^7.31.1
   react-iconly: ^2.2.5
   solhint: ^3.3.7
@@ -66,6 +67,7 @@ dependencies:
   next-themes: 0.2.0_zhtyyhxvjc4vmyivr6fwl32yja
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-dropzone: 14.2.1_react@17.0.2
   react-hook-form: 7.31.1_react@17.0.2
   react-iconly: 2.2.5_react@17.0.2
   wagmi: 0.3.5_ee42rxmdix2257kkf7zkleqysi
@@ -2981,6 +2983,11 @@ packages:
     engines: {node: '>= 4.5.0'}
     hasBin: true
     dev: true
+
+  /attr-accept/2.2.2:
+    resolution: {integrity: sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==}
+    engines: {node: '>=4'}
+    dev: false
 
   /available-typed-arrays/1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
@@ -6296,6 +6303,13 @@ packages:
       flat-cache: 3.0.4
     dev: true
 
+  /file-selector/0.6.0:
+    resolution: {integrity: sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==}
+    engines: {node: '>= 12'}
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
   /fill-range/4.0.0:
     resolution: {integrity: sha1-1USBHUKPmOsGpj3EAtJAPDKMOPc=}
     engines: {node: '>=0.10.0'}
@@ -9571,7 +9585,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /proxy-addr/2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -9766,6 +9779,18 @@ packages:
       scheduler: 0.20.2
     dev: false
 
+  /react-dropzone/14.2.1_react@17.0.2:
+    resolution: {integrity: sha512-jzX6wDtAjlfwZ+Fbg+G17EszWUkQVxhMTWMfAC9qSUq7II2pKglHA8aarbFKl0mLpRPDaNUcy+HD/Sf4gkf76Q==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      react: '>= 16.8 || 18.0.0'
+    dependencies:
+      attr-accept: 2.2.2
+      file-selector: 0.6.0
+      prop-types: 15.8.1
+      react: 17.0.2
+    dev: false
+
   /react-hook-form/7.31.1_react@17.0.2:
     resolution: {integrity: sha512-QjtjZ8r8KtEBWWpcXLyQordCraTFxILtyQpaz5KLLxN2YzcC+FZ9LLtOnNGuOnzZo9gCoB+viK3ZHV9Mb2htmQ==}
     engines: {node: '>=12.22.0'}
@@ -9786,7 +9811,6 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: true
 
   /react-query/4.0.0-beta.9_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-RRred9TzbWcsaJBwuHmsuCLYhcytObPmM5mFktLEm3I0s6PJjE3vh8WA7ZYklpfR1My3ffZyLn6gCMWpvEgSag==}

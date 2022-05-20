@@ -3,7 +3,7 @@ import { Button, Container, Grid, Input, Loading, Spacer, Text, Textarea } from 
 import { mergeProps } from '@react-aria/utils';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
-import { CarMakeTip, ClaimHero } from '@components';
+import { CarMakeTip, ClaimHero, DndUploader } from '@components';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { NextPage } from 'next';
 
@@ -27,6 +27,7 @@ const ClaimPage: NextPage = () => {
   } = useForm<ClaimFormData>();
 
   const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState<File[] | undefined>(undefined);
 
   useEffect(() => {
     return () => {
@@ -40,7 +41,7 @@ const ClaimPage: NextPage = () => {
   }, []);
 
   const fileClaimHandler = async (data: ClaimFormData) => {
-    console.log('fileClaimHandler: ', data);
+    console.log('fileClaimHandler: ', data, files);
     if (isValid) {
       setLoading(true);
     }
@@ -185,6 +186,13 @@ const ClaimPage: NextPage = () => {
                 labelPlaceholder="Description"
                 color={errors.eventDescription && 'error'}
                 {...mergeProps(inputItemProps, register('eventDescription', { required: true, maxLength: 100 }))}
+              />
+            </Grid>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <DndUploader
+                onChange={(files: File[] | undefined) => {
+                  setFiles(files);
+                }}
               />
             </Grid>
           </Grid.Container>
