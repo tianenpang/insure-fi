@@ -1,47 +1,58 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { Col, Container, Row, Spacer, Text } from '@nextui-org/react';
 import { ConnectButton } from '@components/connect-button';
 import { Logo } from '@components/logos';
+import { MobileMenu } from '@components/mobile-menu';
 import { NavItem } from '@components/nav-item';
+import { useMediaQuery } from '@hooks';
 import { StyledHeader, StyledNavContainer } from './header.styles';
 import type { FC } from 'react';
 
 export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const {} = props;
-
+  const isMobile = useMediaQuery(650);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {
     setScrollPosition((typeof window !== 'undefined' && window.scrollY) || 0);
+  }, []);
+
+  const onScroll = useCallback(() => {
+    if (window.scrollY >= 0 && window.scrollY <= 500) {
+      requestAnimationFrame(() => {
+        setScrollPosition(window.scrollY);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('scroll', onScroll.bind(this));
     return () => {
       window.removeEventListener('scroll', onScroll.bind(this));
     };
-  }, []);
+  }, [onScroll]);
 
   const detached = useMemo(() => {
     return Boolean(scrollPosition > 0);
   }, [scrollPosition]);
-
-  const onScroll = () => {
-    requestAnimationFrame(() => {
-      setScrollPosition(window.scrollY);
-    });
-  };
 
   return (
     <Fragment>
       <StyledHeader as="header">
         <StyledNavContainer detached={detached} showBlur={detached}>
           <Container as="nav" css={{ py: '$lg' }} display="flex" wrap="nowrap" justify="space-between" alignItems="center" md>
-            <Col>
-              <Row justify="flex-start" align="center">
-                <NavItem href="/">
-                  <Logo css={{ size: '$14' }} />
-                </NavItem>
-              </Row>
-            </Col>
-            <Col>
+            {isMobile ? (
+              <MobileMenu />
+            ) : (
+              <Col>
+                <Row justify="flex-start" align="center">
+                  <NavItem href="/">
+                    <Logo css={{ size: '$14' }} />
+                  </NavItem>
+                </Row>
+              </Col>
+            )}
+            <Col css={{ '@xsMax': { display: 'none' } }}>
               <Row justify="center" align="center">
                 <NavItem href="/">
                   <Text span size="1.1rem">

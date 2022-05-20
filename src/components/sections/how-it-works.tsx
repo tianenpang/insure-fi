@@ -48,7 +48,7 @@ export const HowItWorksSection: FC = () => {
           How it works
         </Text>
         <Spacer y={4} />
-        <Grid.Container css={{ p: '0px' }} gap={4} justify="center">
+        <Grid.Container css={{ p: '0px' }} gap={4} justify="space-between">
           {processItems.map((item: ProcessItem, index: number) => (
             <Grid key={`${item.title}-${index}`} xs={12} sm={4} lg={3}>
               <StyledProcessCard>

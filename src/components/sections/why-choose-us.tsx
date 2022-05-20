@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Col, Container, Grid, Row, Spacer, Text } from '@nextui-org/react';
+import { Container, Grid, Spacer, Text } from '@nextui-org/react';
 import { Category, Scan, ShieldDone, User } from 'react-iconly';
 import { StyledBlurCard, StyledImage } from './section.styles';
 import type { GridProps } from '@nextui-org/react';
@@ -14,11 +14,15 @@ const iconProps: IconProps = {
 
 const gridItemProps: GridProps = {
   xs: 12,
+  sm: 6,
   md: 6,
   css: {
     dflex: 'flex-start',
     flexDirection: 'column',
-    gap: '$sm'
+    gap: '$sm',
+    '@smMax': {
+      dflex: 'center'
+    }
   }
 };
 
@@ -30,8 +34,20 @@ export const WhyChooseUsSection: FC = () => {
           Why choose us
         </Text>
         <Spacer y={4} />
-        <Row justify="space-between" align="center" wrap="wrap">
-          <Col span={5.5} css={{ position: 'relative' }}>
+        <Grid.Container css={{ p: '0px' }} gap={4} justify="space-between" alignItems="center" wrap="wrap">
+          <Grid
+            xs={12}
+            sm={6}
+            md={6}
+            css={{
+              position: 'relative',
+              '@smMax': {
+                p: '0',
+                m: '$$gridGapUnit'
+              }
+            }}
+            justify="center"
+          >
             <StyledImage
               alt="car-image"
               width={455}
@@ -41,15 +57,37 @@ export const WhyChooseUsSection: FC = () => {
               objectPosition="center"
             />
             <StyledBlurCard
-              css={{ width: '455px', position: 'absolute', bottom: '-$xl', right: '$xl', p: '$xl', textAlign: 'center' }}
+              css={{
+                position: 'absolute',
+                bottom: '-$xl',
+                right: '$xl',
+                p: '$xl',
+                textAlign: 'center',
+                '@smMax': {
+                  left: '0',
+                  bottom: '0',
+                  right: '0',
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
+                },
+                '@mdMax': {
+                  width: '100%',
+                  maxWidth: '455px',
+                  left: '0',
+                  bottom: '0',
+                  right: '0',
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
+                }
+              }}
             >
               <Text h4>The power is in your hands</Text>
               <Spacer y={1.5} />
               <Text>We work for you as your wish is our command</Text>
             </StyledBlurCard>
-          </Col>
-          <Col span={5.5}>
-            <Grid.Container css={{ p: '0px' }} gap={4} justify="center">
+          </Grid>
+          <Grid xs={12} sm={6} md={6} justify="center">
+            <Grid.Container css={{ p: '0px' }} gap={4} justify="center" alignItems="center">
               <Grid {...gridItemProps}>
                 <User {...iconProps} />
                 <Text b>Hassle free registration</Text>
@@ -71,8 +109,8 @@ export const WhyChooseUsSection: FC = () => {
                 <Text>Protects all whether comprehensive or third-party</Text>
               </Grid>
             </Grid.Container>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid.Container>
       </Container>
     </Fragment>
   );

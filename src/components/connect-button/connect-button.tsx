@@ -3,11 +3,14 @@ import { Button, Spacer } from '@nextui-org/react';
 import { ConnectButton as RainbowButton } from '@rainbow-me/rainbowkit';
 import { default as NextImage } from 'next/image';
 import { Wallet } from 'react-iconly';
+import { useMediaQuery } from '@hooks';
 import { StyledConnectedContainer, StyledContainer } from './connect-button.styles';
 import type { FC } from 'react';
 
 export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps) => {
   const {} = props;
+
+  const isMobile = useMediaQuery(650);
 
   return (
     <Fragment>
@@ -41,14 +44,19 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                 }
 
                 return (
-                  <StyledConnectedContainer>
+                  <StyledConnectedContainer css={{ flexShrink: 0 }}>
                     <Button
                       type="button"
                       color="gradient"
                       auto
                       bordered
                       ripple={false}
-                      icon={chain.iconUrl && <NextImage alt={chain.name} src={chain.iconUrl} width={24} height={24} />}
+                      size={isMobile ? 'sm' : 'md'}
+                      icon={
+                        !isMobile && chain.iconUrl ? (
+                          <NextImage alt={chain.name} src={chain.iconUrl} width={24} height={24} />
+                        ) : undefined
+                      }
                       onClick={() => openChainModal()}
                     >
                       {chain.name}
@@ -59,12 +67,15 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                       color="gradient"
                       auto
                       ripple={false}
+                      size={isMobile ? 'sm' : 'md'}
                       icon={
-                        account.ensAvatar ? (
-                          <NextImage alt={account.ensName} src={account.ensAvatar} width={24} height={24} />
-                        ) : (
-                          <Wallet primaryColor="currentColor" set="curved" />
-                        )
+                        !isMobile ? (
+                          account.ensAvatar ? (
+                            <NextImage alt={account.ensName} src={account.ensAvatar} width={24} height={24} />
+                          ) : (
+                            <Wallet primaryColor="currentColor" set="curved" />
+                          )
+                        ) : undefined
                       }
                       onClick={() => openAccountModal()}
                     >
