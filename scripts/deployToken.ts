@@ -3,7 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers } from 'hardhat';
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,16 +14,16 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-  const claimAddress = "0x9E545E3C0baAB3E08CdfD552C960A1050f373042"
-  const InsureFi = await ethers.getContractAt("InsureFi",tokenAddress);
-//   const deployInsureFi = await InsureFi.deploy();
+  const tokenAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+  const claimAddress = '0x9E545E3C0baAB3E08CdfD552C960A1050f373042';
+  const InsureFi = await ethers.getContractAt('InsureFi', tokenAddress);
+  //   const deployInsureFi = await InsureFi.deploy();
 
-//   await deployInsureFi.deployed();
+  //   await deployInsureFi.deployed();
 
-  console.log("Token address:", InsureFi.address);
+  console.log('Token address:', InsureFi.address);
 
-  const mint = await InsureFi.mint(claimAddress,"10000000000000000000000");
+  const mint = await InsureFi.mint(claimAddress, '10000000000000000000000');
   console.log(mint);
 }
 
