@@ -1,6 +1,6 @@
 # InsureFi
 
-Insure Fi is a blockchain based car insurance decentralized application that allows users to buy car insurance and have policy claim.
+Insure Fi is a blockchain based car insurance decentralized application that allows users to buy car insurance and be able to file claims and get instant payout.
 
 **Problem**:
 
@@ -16,10 +16,63 @@ For car insurance→ inputs their car information → gets quote for the premium
 
 For claims → inputs their insurance number → gets claim estimate → claims adjusted accordingly → claims authorized → claims paid out.
 
+
+
 **Features**
 
 Register to become a policy holder
 
-Gets premium
-
 File for claims
+
+## Tools
+- [Pnpm](https://pnpm.io/)
+- [Turborepo](https://turborepo.org/)
+- [Solidity](https://soliditylang.org/)
+- [Hardhat](https://hardhat.org/)
+- [Alchemy](https://www.alchemy.com/)
+- [Next.JS](https://nextjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+
+## Getting Started
+To run this code locally:
+
+### Clone This Repo
+```
+git clone https://github.com/Nwosu-Ihueze/NFTLoan
+cd NFTLoan
+```
+
+### Install Dependencies
+Using the **[pnpm](https://pnpm.io)** package manager. [How to install pnpm?](https://pnpm.io/installation)
+```
+pnpm install
+```
+
+### Compile The Contract
+```
+pnpm build:loan
+```
+
+### Frontend Instructions
+
+```bash
+# start dev server, default on localhost:3000
+$ pnpm dev:frontend
+
+# build production
+$ pnpm build:frontend
+
+# run production server
+$ pnpm start:frontend
+```
+
+## Collaborators
+[TianenPang](https://github.com/TianenPang)
+
+## License
+GPL-3.0-or-later
+
+## Contact
+Rosemary - @twitter/adaihueze
+
+TianenPang - [TianenPang](https://github.com/TianenPang)
