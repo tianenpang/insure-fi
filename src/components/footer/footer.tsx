@@ -32,7 +32,7 @@ export const Footer: FC<FooterProps> = (props: FooterProps) => {
             md
           >
             <Grid.Container css={{ p: '0px' }} gap={4} justify="space-between">
-              <Grid xs={12} sm={6} md={2} direction="column" justify="flex-start" alignItems="flex-start">
+              <Grid xs={12} sm={6} md={3} direction="column" justify="flex-start" alignItems="flex-start">
                 <NavItem href="/" css={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row' }}>
                   <Logo css={{ size: '$14' }} />
                   <Spacer x={0.5} />
@@ -92,7 +92,7 @@ export const Footer: FC<FooterProps> = (props: FooterProps) => {
                   </NavItem>
                 </Row>
               </Grid>
-              <Grid xs={12} sm={6} md={2} direction="column" justify="flex-start" alignItems="flex-start">
+              <Grid xs={12} sm={6} md={3} direction="column" justify="flex-start" alignItems="flex-start">
                 <Text b>Newsletter</Text>
                 <Spacer y={1.5} />
                 <Row justify="flex-start" align="center">
