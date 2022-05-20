@@ -60,7 +60,7 @@ export const QuoteModal: FC<QuoteModalProps> = (props: QuoteModalProps) => {
         auto
         ripple={false}
         onClick={() => openHandler()}
-        css={{ maxHeight: '$space$14', '@xsMax': { width: '100%', marginBottom: '$8' } }}
+        css={{ maxHeight: '$space$14', '@smMax': { marginBottom: '$8' }, '@xsMax': { width: '100%', marginBottom: '$8' } }}
       >
         Get Quote
       </Button>
