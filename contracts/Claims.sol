@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.4;
 
-import "./registration.sol";
+import "./Registration.sol";
 import "./IERC20.sol";
 
 contract Claims is Registration{
@@ -101,11 +101,11 @@ contract Claims is Registration{
 
     function getClaims() public returns(uint) {
         // require(getInsuranceRate() == true, "Filing failed");
-        return getPriceYear() + getPriceMake() + getCostByAge() + getCostByYearsDriving() / timeDifference();
+        return getPriceYear() + getPriceMake() + getCostByAge() / getCostByYearsDriving() * timeDifference();
     }
 
     function makePayout() external {
-        (bool sent) = InsureToken.transfer(msg.sender, getClaims()/10e18);
+        (bool sent) = InsureToken.transfer(msg.sender, getClaims()/10e10);
          require(sent, "Claims failed");
     }
 }

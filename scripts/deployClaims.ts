@@ -16,12 +16,12 @@ async function main() {
   // We get the contract to deploy
   const [user1,user2,user3] = await ethers.getSigners()
   const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-  const claimAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+  const claimAddress = "0x9E545E3C0baAB3E08CdfD552C960A1050f373042"
   const InsureFi = await ethers.getContractAt("InsureFi", tokenAddress);
   const Claims = await ethers.getContractAt("Claims",claimAddress);
-    //   const deployClaims = await Claims.deploy(tokenAddress);
+    // const deployClaims = await Claims.deploy(tokenAddress);
 
-    //   await deployClaims.deployed();
+    // await deployClaims.deployed();
 
   console.log("Claims deployed to:", Claims.address);
 
@@ -31,22 +31,26 @@ async function main() {
   await Claims.connect(user1).registerCar("Toyota","Corolla",1998,10000,"123ABC");
   console.log("Register car succesful");
   
-//   await Claims.viewRegistration();
+  const details = await Claims.insuree(user1.address);
+  console.log(details);
   
   const getCost = await Claims.connect(user1).getCost();
   console.log("Insurance cost is:", getCost);
 
-  const ethVal = {value:ethers.utils.parseEther("0.41")}
-  const makePayment = await Claims.connect(user1).makePayment(ethVal);
+  const ethVal = {value:ethers.utils.parseEther("0.51")}
+  const makePayment = await Claims.makePayment(ethVal);
   console.log("Payment succesfull, You have been insured!");
-
-  const seeReg = await Claims.policyID();
-  console.log(seeReg);
   
-  
-//   const startClaim = await Claims.startClaim("John",1,3,25);
-//   console.log("Claims started");
+  const startClaim = await Claims.startClaim("John",1,3,25);
+  console.log("Claims started");
  
+  const InsBal = await InsureFi.balanceOf(user1.address);
+  console.log("InsureFi balance before claims",InsBal);
+
+  const payOut = await Claims.makePayout()
+
+  const InsBal2 = await InsureFi.balanceOf(user1.address);
+  console.log("InsureFi balance after claims",InsBal2);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

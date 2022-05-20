@@ -120,6 +120,7 @@ contract Registration {
     
     // Function to register car
     function registerCar (string memory _carMake, string memory _carModel, uint16 _carYear, uint16 _mileage, string memory _licensePlate) public {
+        require(!insured[msg.sender],"You have been previously insured");
         Car storage car = insuree[msg.sender];
         car.carMake = _carMake;
         car.carModel = _carModel;
@@ -133,8 +134,8 @@ contract Registration {
     }
     
     // Function to make payment in Matic
-    function makePayment () public payable {
-        require(msg.value == getCost(), "insufficient ether");
+    function makePayment() public payable {
+        require(msg.value >= getCost(),"insufficient ether");
         insured[msg.sender] = true;
     }
 
