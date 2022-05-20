@@ -33,6 +33,7 @@ contract Claims is Registration{
     // mapping(address => Event) public accident;
 
     function startClaim(string memory _lastName, uint16 _policyID, uint8 _yearsDriving, uint8 _age) public {
+        require(insured[msg.sender],"You need to be insured before claim");
         require(_policyID != 0 && _policyID == insuree[msg.sender].carID,"Invalid ID");
         Holder storage user = holder[msg.sender];
         user.lastName = _lastName;
@@ -65,8 +66,8 @@ contract Claims is Registration{
     // }
 
     function timeDifference() internal returns(uint){
-        uint timeDifference = block.timestamp - insuree[msg.sender].registrationTime;
-        return timeDifference / 60 * 60 * 24;
+        uint time = block.timestamp - insuree[msg.sender].registrationTime;
+        return time / 60 * 60 * 24;
     }
  
     function getCostByAge() internal returns (uint) {
@@ -97,13 +98,14 @@ contract Claims is Registration{
         }
     }
 
+
     function getClaims() public returns(uint) {
-        require(getInsuranceRate() == true, "Filing failed");
-        return getPriceYear() + getPriceMake() + getCostByAge() + getCostByYearsDriving() / timeDifference();
+        // require(getInsuranceRate() == true, "Filing failed");
+        return getPriceYear() + getPriceMake() + getCostByAge() / getCostByYearsDriving() * timeDifference();
     }
 
     function makePayout() external {
-        (bool sent) = InsureToken.transfer(msg.sender, getClaims());
+        (bool sent) = InsureToken.transfer(msg.sender, getClaims()/10e10);
          require(sent, "Claims failed");
     }
 }

@@ -7,11 +7,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract InsureFi is ERC20, Ownable {
     address to;
 
-    constructor(address _to) ERC20("InsureFi", "INF") {
-        to = _to; 
-    }
+    constructor() ERC20("InsureFi", "INF") {}
 
-    function mint(uint256 amount) public onlyOwner {
+    function mint(address _to, uint256 amount) public onlyOwner {
+        to = _to; 
         _mint(to, amount);
     }
 }
