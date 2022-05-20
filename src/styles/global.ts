@@ -19,39 +19,6 @@ export const globalStyles = globalCss({
   },
   'div[data-rk]': {
     lineHeight: 1,
-    userSelect: 'none',
-    '.ju367v15, .ju367v12, .ju367v11': {
-      borderRadius: '12px'
-    },
-    '.ju367v87': {
-      paddingTop: '24px'
-    },
-    '.ju367v7n': {
-      paddingRight: '24px'
-    },
-    '.ju367v73': {
-      paddingLeft: '24px'
-    },
-    '.ju367v6j': {
-      paddingBottom: '24px'
-    },
-    '.ju367v7o': {
-      paddingRight: '24px'
-    },
-    '.ju367v74': {
-      paddingLeft: '24px'
-    },
-    '.ju367v6g': {
-      paddingBottom: '24px'
-    },
-    '.ju367v20': {
-      gap: '24px'
-    },
-    '.ju367v1u': {
-      gap: '16px'
-    },
-    '.ju367v1z': {
-      gap: '16px'
-    }
+    userSelect: 'none'
   }
 });
