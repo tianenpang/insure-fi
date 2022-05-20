@@ -107,7 +107,7 @@ export const Footer: FC<FooterProps> = (props: FooterProps) => {
               </Row>
               <Spacer y={1} />
               <Row justify="flex-start" align="center">
-                <Button type="button" color="gradient" auto ripple={false} disabled={!email} onPress={() => subscribeHandler()}>
+                <Button type="button" color="gradient" auto ripple={false} disabled={!email} onClick={() => subscribeHandler()}>
                   Subscribe
                 </Button>
               </Row>

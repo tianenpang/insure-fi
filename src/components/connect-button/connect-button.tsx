@@ -25,7 +25,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                       bordered
                       ripple={false}
                       icon={<Wallet primaryColor="currentColor" set="curved" />}
-                      onPress={() => openConnectModal()}
+                      onClick={() => openConnectModal()}
                     >
                       Connect Wallet
                     </Button>
@@ -34,7 +34,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
 
                 if (chain.unsupported) {
                   return (
-                    <Button type="button" color="error" auto bordered ripple={false} onPress={() => openChainModal()}>
+                    <Button type="button" color="error" auto bordered ripple={false} onClick={() => openChainModal()}>
                       Wrong network
                     </Button>
                   );
@@ -49,7 +49,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                       bordered
                       ripple={false}
                       icon={chain.iconUrl && <NextImage alt={chain.name} src={chain.iconUrl} width={24} height={24} />}
-                      onPress={() => openChainModal()}
+                      onClick={() => openChainModal()}
                     >
                       {chain.name}
                     </Button>
@@ -66,7 +66,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                           <Wallet primaryColor="currentColor" set="curved" />
                         )
                       }
-                      onPress={() => openAccountModal()}
+                      onClick={() => openAccountModal()}
                     >
                       {account.displayName}
                     </Button>
