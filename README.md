@@ -20,7 +20,7 @@ For car insurance→ inputs their car information → gets quote for the premium
 
 For claims → inputs their insurance number → gets claim estimate → claims adjusted accordingly → claims authorized → claims paid out.
 
-![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/9415eaf3fec307ce6739f9522c376218a07c93e1/story.pngraw=true)
+![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/9415eaf3fec307ce6739f9522c376218a07c93e1/story.png?raw=true)
 
 **Features**
 
