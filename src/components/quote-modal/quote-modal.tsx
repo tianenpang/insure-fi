@@ -64,7 +64,7 @@ export const QuoteModal: FC<QuoteModalProps> = (props: QuoteModalProps) => {
       >
         Get Quote
       </Button>
-      <Modal width="620px" open={visible} blur scroll closeButton aria-labelledby="get-quote-modal" onClose={() => closeHandler()}>
+      <Modal open={visible} blur scroll closeButton aria-labelledby="get-quote-modal" onClose={() => closeHandler()}>
         <form onSubmit={handleSubmit(getQuoteHandler)}>
           <Modal.Header>
             <Text size={24} b>
