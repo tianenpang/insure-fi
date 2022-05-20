@@ -2,9 +2,9 @@
 
 Insure Fi is a blockchain based car insurance decentralized application that allows users to buy car insurance and be able to file claims and get instant payout.
 
-![alt text](https://github.com/Nwosu-Ihueze/NFTLoan/blob/main/Homepage.png?raw=true)
-![alt text](https://github.com/Nwosu-Ihueze/NFTLoan/blob/main/Registration.png?raw=true)
-![alt text](https://github.com/Nwosu-Ihueze/NFTLoan/blob/main/Claim.png?raw=true)
+![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/1f8f93eebaff79097033f593a410dda972e23098/Homepage.png?raw=true)
+![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/1f8f93eebaff79097033f593a410dda972e23098/Registration.png?raw=true)
+![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/1f8f93eebaff79097033f593a410dda972e23098/Claim.png?raw=true)
 
 **Problem**:
 
@@ -20,7 +20,7 @@ For car insurance→ inputs their car information → gets quote for the premium
 
 For claims → inputs their insurance number → gets claim estimate → claims adjusted accordingly → claims authorized → claims paid out.
 
-![alt text](https://github.com/Nwosu-Ihueze/NFTLoan/blob/main/User story.png?raw=true)
+![alt text](https://github.com/Nwosu-Ihueze/InsureFi/blob/9415eaf3fec307ce6739f9522c376218a07c93e1/story.pngraw=true)
 
 **Features**
 
