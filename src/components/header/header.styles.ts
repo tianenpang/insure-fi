@@ -2,7 +2,7 @@ import { styled } from '@nextui-org/react';
 
 export const StyledHeader = styled('header', {
   us: 'none',
-  zIndex: '$max',
+  zIndex: 'calc($max - 1)',
   background: 'transparent',
   position: 'sticky',
   top: 0
