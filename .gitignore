@@ -21,6 +21,8 @@ coverage
 /dist
 /build
 /cache
+/artifacts
+/artifacts/types
 
 # misc
 .DS_Store
