@@ -4,6 +4,7 @@ import { mergeProps } from '@react-aria/utils';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
 import { CarMakeTip, ClaimHero, DndUploader } from '@components';
+import { useIpfsStorage } from '@hooks';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { NextPage } from 'next';
 
@@ -26,6 +27,7 @@ const ClaimPage: NextPage = () => {
     formState: { isValid, errors }
   } = useForm<ClaimFormData>();
 
+  const { store, isStoreLoading } = useIpfsStorage();
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[] | undefined>(undefined);
 
@@ -44,8 +46,20 @@ const ClaimPage: NextPage = () => {
     console.log('fileClaimHandler: ', data, files);
     if (isValid) {
       setLoading(true);
+      const cid = await store({
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60',
+        policyID: '123',
+        files
+      });
+      cid && console.log('fileClaimHandler: ', cid);
+      cid && console.log('fileClaimHandler: ', `https://nftstorage.link/ipfs/${cid}`);
     }
+    setLoading(false);
   };
+
+  const isClaiming = useMemo<boolean>(() => {
+    return isStoreLoading && loading;
+  }, [isStoreLoading, loading]);
 
   return (
     <Fragment>
@@ -199,7 +213,7 @@ const ClaimPage: NextPage = () => {
         </Container>
         <Container as="section" css={{ dflex: 'center', py: '$12', textAlign: 'center' }} gap={0} md>
           <Button type="submit" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }}>
-            {loading ? <Loading color="currentColor" size="sm" /> : 'File Claim'}
+            {isClaiming ? <Loading color="currentColor" size="sm" /> : 'File Claim'}
           </Button>
         </Container>
       </form>
