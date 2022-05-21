@@ -3,15 +3,29 @@ pragma solidity ^0.8.4;
 
 import "./Registration.sol";
 import "./IERC20.sol";
+import "./IgetFlow.sol";
+import {
+    IConstantFlowAgreementV1
+} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/agreements/IConstantFlowAgreementV1.sol";
+
+import {
+    ISuperToken
+} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol";
 
 contract Claims is Registration{
 
     IERC20 InsureToken;
+    IConstantFlowAgreementV1 private _cfa;
+    ISuperToken private _acceptedToken;  
 
     constructor(
-        address _tokenAddress
+        address _tokenAddress,
+        IConstantFlowAgreementV1 cfa,
+        ISuperToken acceptedToken
     ){
         InsureToken = IERC20(_tokenAddress);
+        _cfa = cfa;
+        _acceptedToken = acceptedToken;
     }
 
     struct Holder {
@@ -65,11 +79,15 @@ contract Claims is Registration{
     //     e.eventImgHash = _eventImgHash;
     // }
 
+    function flowDetails() public view returns(uint256 timestamp, int96 flowRate,uint256 deposit,uint256 owedDeposit){
+        (uint256 timestamp,int96 flowRate,uint256 deposit,uint256 owedDeposit) = _cfa.getFlow(_acceptedToken,msg.sender,address(this));
+    }
+
     function timeDifference() internal returns(uint){
         uint time = block.timestamp - insuree[msg.sender].registrationTime;
         return time / 60 * 60 * 24;
     }
- 
+
     function getCostByAge() internal returns (uint) {
         Holder memory user = holder[msg.sender];
         uint age = user.age;
