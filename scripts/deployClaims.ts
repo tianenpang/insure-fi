@@ -15,11 +15,13 @@ async function main() {
 
   // We get the contract to deploy
   const [user1,user2,user3] = await ethers.getSigners()
-  const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-  const claimAddress = "0x9E545E3C0baAB3E08CdfD552C960A1050f373042"
+  const tokenAddress = "0xC5123B98c3A0aa1a4F9390BCf76f7B9D775a5687"
+  const claimAddress = "0x511930A41fae024714948b700764394CB759B72f"
+  const CFAV1 = "0x6EeE6060f715257b970700bc2656De21dEdF074C"
+  const acceptedToken = "0x3aD736904E9e65189c3000c7DD2c8AC8bB7cD4e3"
   const InsureFi = await ethers.getContractAt("InsureFi", tokenAddress);
   const Claims = await ethers.getContractAt("Claims",claimAddress);
-    // const deployClaims = await Claims.deploy(tokenAddress);
+    // const deployClaims = await Claims.deploy(tokenAddress,CFAV1,acceptedToken);
 
     // await deployClaims.deployed();
 
@@ -51,6 +53,10 @@ async function main() {
 
   const InsBal2 = await InsureFi.balanceOf(user1.address);
   console.log("InsureFi balance after claims",InsBal2);
+
+  const flowDetails = await Claims.flowDetails();
+  console.log("SuperFluid flow details are:", flowDetails);
+  
 }
 
 // We recommend this pattern to be able to use async/await everywhere

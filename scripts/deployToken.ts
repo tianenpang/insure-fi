@@ -14,8 +14,8 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-  const claimAddress = "0x9E545E3C0baAB3E08CdfD552C960A1050f373042"
+  const tokenAddress = "0xC5123B98c3A0aa1a4F9390BCf76f7B9D775a5687"
+  const claimAddress = "0x511930A41fae024714948b700764394CB759B72f"
   const InsureFi = await ethers.getContractAt("InsureFi",tokenAddress);
 //   const deployInsureFi = await InsureFi.deploy();
 
