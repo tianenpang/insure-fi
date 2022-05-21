@@ -3,9 +3,8 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  compress: true,
-  // rainbowkit not support yet
-  // swcMinify: true,
+  compress: false,
+  swcMinify: false,
   reactStrictMode: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,

@@ -29,7 +29,8 @@ export const IndexHero: FC = () => {
         <Row align="center" wrap="wrap" css={{ zIndex: '$2', '@mdMax': { mt: '80px', p: '0 8px' }, '@xsMax': { mt: '0px' } }}>
           <Col css={{ position: 'relative', zIndex: '$2', '@md': { width: '50%' }, '@mdMax': { width: '100%' } }}>
             <StyledTitle css={{ mb: 0 }}>Get&nbsp;</StyledTitle>
-            <StyledGradientTitle css={{ mb: 0 }}>full protection&nbsp;</StyledGradientTitle>
+            <StyledGradientTitle css={{ mb: 0 }}>full&nbsp;</StyledGradientTitle>
+            <StyledGradientTitle css={{ mb: 0 }}>protection&nbsp;</StyledGradientTitle>
             <StyledTitle css={{ mb: 0, '@xsMax': { d: 'inline-block' } }}>the decentralized way</StyledTitle>
             <StyledSubtitle>Get insured and enjoy your ride with full protection from InsureFi</StyledSubtitle>
             <Spacer y={1.5} />
