@@ -17,6 +17,7 @@
     "@rainbow-me/rainbowkit": "^0.1.0",
     "@react-aria/focus": "^3.5.5",
     "@react-aria/utils": "^3.12.0",
+    "@superfluid-finance/ethereum-contracts": "^1.2.2",
     "@superfluid-finance/sdk-core": "^0.4.2",
     "framer-motion": "^6.3.3",
     "hardhat": "^2.9.5",
