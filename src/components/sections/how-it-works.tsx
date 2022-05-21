@@ -50,7 +50,7 @@ export const HowItWorksSection: FC = () => {
         <Spacer y={4} />
         <Grid.Container css={{ p: '0px' }} gap={4} justify="space-between">
           {processItems.map((item: ProcessItem, index: number) => (
-            <Grid key={`${item.title}-${index}`} xs={12} sm={4} lg={3}>
+            <Grid key={`${item.title}-${index}`} xs={12} sm={6} md={3} lg={3}>
               <StyledProcessCard>
                 <Row align="center">
                   <div className="icon">{item.icon}</div>

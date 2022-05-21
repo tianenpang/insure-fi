@@ -50,8 +50,8 @@ export const WhyChooseUsSection: FC = () => {
           >
             <StyledImage
               alt="car-image"
-              width={455}
-              height={395}
+              width={592}
+              height={510}
               src="/assets/image/why-choose-us.png"
               unselectable="on"
               objectPosition="center"
@@ -60,7 +60,7 @@ export const WhyChooseUsSection: FC = () => {
               css={{
                 position: 'absolute',
                 bottom: '-$xl',
-                right: '$xl',
+                right: '0',
                 p: '$xl',
                 textAlign: 'center',
                 '@smMax': {
@@ -73,7 +73,6 @@ export const WhyChooseUsSection: FC = () => {
                 '@mdMax': {
                   width: '100%',
                   maxWidth: '455px',
-                  left: '0',
                   bottom: '0',
                   right: '0',
                   marginLeft: 'auto',
