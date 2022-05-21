@@ -67,6 +67,11 @@
   "files": [
     "./hardhat.config.ts"
   ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "include": [
     "**/*.js",
     "**/*.ts",
