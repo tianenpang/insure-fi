@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { Button, Container, Grid, Input, Loading, Spacer, Text, Textarea } from '@nextui-org/react';
+import { Button, Col, Container, Grid, Input, Loading, Modal, Row, Spacer, Text, Textarea } from '@nextui-org/react';
 import { mergeProps } from '@react-aria/utils';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
@@ -25,6 +25,7 @@ const ClaimPage: NextPage = () => {
   const {
     reset,
     register,
+    getValues,
     handleSubmit,
     formState: { isValid, errors }
   } = useForm<ClaimFormData>();
@@ -51,6 +52,7 @@ const ClaimPage: NextPage = () => {
   );
 
   const { store, isStoreLoading } = useIpfsStorage();
+  const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[] | undefined>(undefined);
 
@@ -66,27 +68,35 @@ const ClaimPage: NextPage = () => {
   }, []);
 
   const fileClaimHandler = async (data: ClaimFormData) => {
-    console.log('fileClaimHandler: ', data, files);
+    console.log('fileClaimHandler: ', data, files, isValid);
     if (isValid) {
-      setLoading(true);
-      startClaim.write({
-        args: [
-          {
-            _lastName: data.lastName,
-            _policyID: 3,
-            _yearsDriving: data.yearsDriving,
-            _age: data.age
-          }
-        ]
-      });
-      const cid = await store({
-        address: walletAccount?.address ?? '',
-        policyID: data.policyId,
-        files
-      });
-      cid && console.log('fileClaimHandler: ', cid);
-      cid && console.log('fileClaimHandler: ', `https://nftstorage.link/ipfs/${cid}`);
+      setVisible(true);
     }
+  };
+
+  const closeHandler = () => {
+    setVisible(false);
+  };
+
+  const claimHandler = async () => {
+    setLoading(true);
+    startClaim.write({
+      args: [
+        {
+          _lastName: getValues('lastName'),
+          _policyID: getValues('policyId'),
+          _yearsDriving: getValues('yearsDriving'),
+          _age: getValues('age')
+        }
+      ]
+    });
+    const cid = await store({
+      address: walletAccount?.address ?? '',
+      policyID: getValues('policyId'),
+      files
+    });
+    cid && console.log('fileClaimHandler: ', cid);
+    cid && console.log('fileClaimHandler: ', `https://nftstorage.link/ipfs/${cid}`);
     setLoading(false);
   };
 
@@ -246,10 +256,56 @@ const ClaimPage: NextPage = () => {
         </Container>
         <Container as="section" css={{ dflex: 'center', py: '$12', textAlign: 'center' }} gap={0} md>
           <Button type="submit" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }}>
-            {isClaiming ? <Loading color="currentColor" size="sm" /> : 'File Claim'}
+            File Claim
           </Button>
         </Container>
       </form>
+      <Modal open={visible} blur scroll closeButton aria-labelledby="flow-modal" onClose={() => closeHandler()}>
+        <Modal.Header css={{ flexDirection: 'column' }}>
+          <Text size={24} b>
+            Paying out
+          </Text>
+          <Text>Your payout based on the information provided</Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Grid.Container css={{ p: 0 }} gap={4}>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <Row>
+                <Col>Age:</Col>
+                <Col>{getValues('age')}</Col>
+              </Row>
+            </Grid>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <Row>
+                <Col>Years Driving:</Col>
+                <Col>{getValues('yearsDriving')}</Col>
+              </Row>
+            </Grid>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <Row>
+                <Col>Date:</Col>
+                <Col>{getValues('eventDate')}</Col>
+              </Row>
+            </Grid>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <Row>
+                <Col>Car Make:</Col>
+                <Col>{getValues('carMake')}</Col>
+              </Row>
+            </Grid>
+            <Grid {...gridItemProps} md={12} lg={12}>
+              <Row>
+                <Col>Payout amount: x.x ETH ($xxx)</Col>
+              </Row>
+            </Grid>
+          </Grid.Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="button" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }} onClick={() => claimHandler()}>
+            {isClaiming ? <Loading color="currentColor" size="sm" /> : 'Payout'}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Fragment>
   );
 };
