@@ -316,7 +316,6 @@ const RegisterPage: NextPage = () => {
                 Create Flow
               </Text>
             </Modal.Header>
-            <CarMakeTip />
             <Modal.Body>
               <Grid.Container css={{ p: 0 }} gap={4}>
                 <Grid {...gridItemProps} md={12} lg={12}>
