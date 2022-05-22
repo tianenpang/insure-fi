@@ -3,7 +3,7 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  compress: false,
+  compress: true,
   swcMinify: false,
   reactStrictMode: true,
   poweredByHeader: false,

@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { apiProvider, configureChains, connectorsForWallets, RainbowKitProvider, wallet } from '@rainbow-me/rainbowkit';
 import { chain, createClient, WagmiProvider } from 'wagmi';
 import { useRainbowTheme } from '@hooks';
+import type { Chain } from '@rainbow-me/rainbowkit';
 import type { FC, ReactNode } from 'react';
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -10,8 +11,15 @@ const needsInjectedWalletFallback = Boolean(
 );
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.ropsten, chain.polygonMumbai],
-  [apiProvider.alchemy(process.env.ALCHEMY_ID), apiProvider.fallback()]
+  [
+    {
+      ...chain.polygonMumbai,
+      rpcUrls: {
+        default: 'https://speedy-nodes-nyc.moralis.io/1081efd32566a9cdb0bd5ccf/polygon/mumbai'
+      }
+    }
+  ],
+  [apiProvider.jsonRpc((chain: Chain) => ({ rpcUrl: chain.rpcUrls.default })), apiProvider.fallback()]
 );
 
 const connectors = connectorsForWallets([

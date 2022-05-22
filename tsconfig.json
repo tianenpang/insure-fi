@@ -62,6 +62,12 @@
       "@styles/*": [
         "src/styles/*"
       ],
+      "@types": [
+        "src/types"
+      ],
+      "@types/*": [
+        "src/types/*",
+      ],
       "@contract-type": [
         "artifacts/contract-type"
       ],
@@ -76,9 +82,9 @@
     "**/*.tsx",
     "**/*.d.ts",
     "next-env.d.ts",
-    "./test",
-    "./scripts",
-    "./artifacts/contract-type"
+    "test",
+    "scripts",
+    "artifacts/contract-type",
   ],
   "exclude": [
     ".next",
@@ -90,7 +96,7 @@
     "node_modules"
   ],
   "files": [
-    "./hardhat.config.ts"
+    "hardhat.config.ts"
   ],
   "ts-node": {
     "compilerOptions": {

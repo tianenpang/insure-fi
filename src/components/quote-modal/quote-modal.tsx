@@ -2,7 +2,9 @@ import { Fragment, useMemo, useState } from 'react';
 import { Button, Grid, Input, Loading, Modal, Text } from '@nextui-org/react';
 import { mergeProps } from '@react-aria/utils';
 import { useForm } from 'react-hook-form';
+import { useContractRead } from 'wagmi';
 import { CarMakeTip } from '@components/car-make-tip';
+import registerABI from '@lib/abi/Registration.json';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { FC } from 'react';
 
@@ -27,6 +29,14 @@ export const QuoteModal: FC<QuoteModalProps> = (props: QuoteModalProps) => {
     formState: { isValid, errors }
   } = useForm<QuoteFormData>();
 
+  const contractRead = useContractRead(
+    {
+      addressOrName: '0x92a5B68B469B726c2Ee71Ba80EbEd0f56c8Ad3E3',
+      contractInterface: registerABI
+    },
+    'getCost'
+  );
+
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +58,10 @@ export const QuoteModal: FC<QuoteModalProps> = (props: QuoteModalProps) => {
     console.log('getQuoteHandler: ', data);
     if (isValid) {
       setLoading(true);
+      contractRead.refetch();
+      console.log(contractRead);
     }
+    setLoading(true);
   };
 
   return (

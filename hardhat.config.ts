@@ -4,6 +4,7 @@ import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'hardhat-gas-reporter';
+// import 'hardhat-abi-exporter';
 import 'solidity-coverage';
 
 dotenv.config();
@@ -40,6 +41,13 @@ const config: HardhatUserConfig = {
     outDir: 'artifacts/contract-type',
     alwaysGenerateOverloads: false
   }
+  // abiExporter: {
+  //   only: [':Registration$', ':Claims$', ':InsureFi$'],
+  //   path: './src/lib/abi',
+  //   spacing: 2,
+  //   pretty: true,
+  //   runOnCompile: true
+  // }
 };
 
 export default config;

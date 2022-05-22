@@ -1,0 +1,136 @@
+[
+  {
+    "inputs": [],
+    "name": "getCost",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "idNum",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "insuree",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "carMake",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "carModel",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "carYear",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "carID",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "mileage",
+        "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "licensePlate",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "registrationTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "makePayment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "policyID",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_carMake",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_carModel",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_carYear",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_mileage",
+        "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "_licensePlate",
+        "type": "string"
+      }
+    ],
+    "name": "registerCar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

@@ -3,8 +3,10 @@ import { Button, Container, Grid, Input, Loading, Spacer, Text, Textarea } from 
 import { mergeProps } from '@react-aria/utils';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
+import { useAccount, useContractWrite } from 'wagmi';
 import { CarMakeTip, ClaimHero, DndUploader } from '@components';
 import { useIpfsStorage } from '@hooks';
+import claimsABI from '@lib/abi/Claims.json';
 import type { GridProps, InputProps } from '@nextui-org/react';
 import type { NextPage } from 'next';
 
@@ -27,6 +29,27 @@ const ClaimPage: NextPage = () => {
     formState: { isValid, errors }
   } = useForm<ClaimFormData>();
 
+  const { data: walletAccount } = useAccount();
+
+  const startClaim = useContractWrite(
+    {
+      addressOrName: '0x92a5B68B469B726c2Ee71Ba80EbEd0f56c8Ad3E3',
+      contractInterface: claimsABI
+    },
+    'startClaim',
+    {
+      onSuccess(data) {
+        console.log('startClaim success: ', data);
+      },
+      onSettled(data, error) {
+        console.log('startClaim settled: ', { data, error });
+      },
+      onError(error) {
+        console.log('startClaim error: ', error);
+      }
+    }
+  );
+
   const { store, isStoreLoading } = useIpfsStorage();
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[] | undefined>(undefined);
@@ -46,9 +69,19 @@ const ClaimPage: NextPage = () => {
     console.log('fileClaimHandler: ', data, files);
     if (isValid) {
       setLoading(true);
+      startClaim.write({
+        args: [
+          {
+            _lastName: data.lastName,
+            _policyID: 3,
+            _yearsDriving: data.yearsDriving,
+            _age: data.age
+          }
+        ]
+      });
       const cid = await store({
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60',
-        policyID: '123',
+        address: walletAccount?.address ?? '',
+        policyID: data.policyId,
         files
       });
       cid && console.log('fileClaimHandler: ', cid);
@@ -94,11 +127,11 @@ const ClaimPage: NextPage = () => {
             </Grid>
             <Grid {...gridItemProps}>
               <Input
-                type="date"
-                aria-label="Date of Birth"
-                labelPlaceholder="Date of Birth"
-                color={errors.dateOfBirth && 'error'}
-                {...mergeProps(inputItemProps, register('dateOfBirth', { required: true }))}
+                type="number"
+                aria-label="Age"
+                labelPlaceholder="Age"
+                color={errors.age && 'error'}
+                {...mergeProps(inputItemProps, register('age', { required: true, min: 15, max: 100 }))}
               />
             </Grid>
             <Grid {...gridItemProps}>
@@ -224,7 +257,7 @@ const ClaimPage: NextPage = () => {
 interface ClaimFormData {
   lastName: string;
   policyId: string;
-  dateOfBirth: string;
+  age: string;
   yearsDriving: number;
   carMake: string;
   carModel: string;

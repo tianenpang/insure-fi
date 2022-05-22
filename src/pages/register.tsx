@@ -1,10 +1,14 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { Button, Container, Grid, Input, Loading, Radio, Spacer, Text } from '@nextui-org/react';
+import { Button, Container, Grid, Input, Loading, Modal, Radio, Spacer, Text } from '@nextui-org/react';
 import { mergeProps } from '@react-aria/utils';
+import { Framework } from '@superfluid-finance/sdk-core';
 import { default as NextHead } from 'next/head';
 import { useForm } from 'react-hook-form';
+import { useContractWrite, useNetwork, useProvider, useSigner } from 'wagmi';
 import { CarMakeTip, RegisterHero } from '@components';
+import registerABI from '@lib/abi/Registration.json';
 import type { GridProps, InputProps } from '@nextui-org/react';
+import type { Signer } from 'ethers';
 import type { NextPage } from 'next';
 
 const gridItemProps: GridProps = {
@@ -26,7 +30,27 @@ const RegisterPage: NextPage = () => {
     formState: { isValid, errors }
   } = useForm<RegistrationFormData>();
 
+  const {
+    register: flowFormRegister,
+    handleSubmit: flowFormHandleSubmit,
+    formState: { isValid: flowFormIsValid, errors: flowFormErrors }
+  } = useForm<CreateFlowFormData>();
+
+  const [cardInfo, setCardInfo] = useState<RegistrationFormData | undefined>(undefined);
+  const [visible, setVisible] = useState(false);
+  const [createFlowSuccess, setCreateFlowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const provider = useProvider();
+  const { activeChain } = useNetwork();
+  const { data: signer } = useSigner();
+  const registerCarData = useContractWrite(
+    {
+      addressOrName: '0x92a5B68B469B726c2Ee71Ba80EbEd0f56c8Ad3E3',
+      contractInterface: registerABI
+    },
+    'registerCar'
+  );
 
   useEffect(() => {
     return () => {
@@ -35,15 +59,84 @@ const RegisterPage: NextPage = () => {
     };
   }, [reset]);
 
+  const createNewFlow = async (recipient: string, flowRate: string) => {
+    // is same as here
+    const sf = await Framework.create({
+      provider: provider,
+      chainId: activeChain!.id
+    });
+
+    const MATICxContract = await sf.loadSuperToken('MATICx');
+    const MATICx = MATICxContract.address;
+
+    try {
+      const createFlowOperation = sf.cfaV1.createFlow({
+        flowRate: flowRate,
+        receiver: recipient,
+        superToken: MATICx
+      });
+
+      console.log('Creating stream...');
+
+      const result = await createFlowOperation.exec(signer as Signer);
+      console.log(result);
+
+      console.log(
+        `Congrats - you've just created a money stream!
+    View Your Stream At: https://app.superfluid.finance/dashboard/${recipient}
+    Network: ${activeChain!.id}
+    Super Token: MATICx
+    Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
+    Receiver: ${recipient},
+    FlowRate: ${flowRate}
+    `
+      );
+    } catch (error) {
+      console.log(
+        "Hmmm, your transaction threw an error. Make sure that this stream does not already exist, and that you've entered a valid Ethereum address!"
+      );
+      console.error(error);
+    }
+  };
+
+  const makePaymentHandler = async (data: RegistrationFormData) => {
+    console.log('registrationHandler: ', data, isValid, errors);
+    setCardInfo(data);
+    setVisible(true);
+    console.log('setVisible', visible);
+    // if (isValid)
+  };
+
+  const createFlowHandler = async (data: CreateFlowFormData) => {
+    console.log('registrationHandler: ', data);
+    if (flowFormIsValid && cardInfo) {
+      setLoading(true);
+      const { recipient, flowRate } = data;
+      await createNewFlow(recipient, flowRate);
+      registerCarData.write({
+        args: [
+          {
+            _carMake: cardInfo.carMake,
+            _carModel: cardInfo.carModel,
+            _carYear: cardInfo.carYear,
+            _mileage: cardInfo.mileage,
+            _licensePlate: cardInfo.licensePlate
+          }
+        ]
+      });
+      console.log('registerCarData: ', registerCarData);
+      setCreateFlowSuccess(true);
+    }
+    setLoading(false);
+  };
+
   const currentYear = useMemo<number>(() => {
     return Number(new Date().getFullYear());
   }, []);
 
-  const registrationHandler = async (data: RegistrationFormData) => {
-    console.log('registrationHandler: ', data);
-    if (isValid) {
-      setLoading(true);
-    }
+  const closeHandler = () => {
+    setVisible(false);
+    setLoading(false);
   };
 
   return (
@@ -52,7 +145,7 @@ const RegisterPage: NextPage = () => {
         <title>Register | InsureFi - A decentralized car insurance</title>
       </NextHead>
       <RegisterHero />
-      <form onSubmit={handleSubmit(registrationHandler)}>
+      <form onSubmit={handleSubmit(makePaymentHandler)}>
         <Container as="section" css={{ pt: '$12', textAlign: 'center' }} gap={0} md>
           <Text h2 size={36} weight="bold">
             Personal Information
@@ -215,6 +308,46 @@ const RegisterPage: NextPage = () => {
           </Button>
         </Container>
       </form>
+      {visible && (
+        <Modal open={visible} blur scroll closeButton aria-labelledby="flow-modal" onClose={() => closeHandler()}>
+          <form onSubmit={flowFormHandleSubmit(createFlowHandler)}>
+            <Modal.Header>
+              <Text size={24} b>
+                Create Flow
+              </Text>
+            </Modal.Header>
+            <CarMakeTip />
+            <Modal.Body>
+              <Grid.Container css={{ p: 0 }} gap={4}>
+                <Grid {...gridItemProps} md={12} lg={12}>
+                  <Input
+                    type="text"
+                    aria-label="Recipient"
+                    labelPlaceholder="Recipient"
+                    color={flowFormErrors.recipient && 'error'}
+                    {...mergeProps(inputItemProps, flowFormRegister('recipient', { required: true, maxLength: 20 }))}
+                  />
+                </Grid>
+                <Grid {...gridItemProps} md={12} lg={12}>
+                  <Input
+                    type="text"
+                    aria-label="Flow rate"
+                    labelPlaceholder="Flow rate"
+                    color={flowFormErrors.flowRate && 'error'}
+                    {...mergeProps(inputItemProps, flowFormRegister('flowRate', { required: true, maxLength: 20 }))}
+                  />
+                </Grid>
+              </Grid.Container>
+              {createFlowSuccess && <Text color="success">Flow has been created</Text>}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button type="submit" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }}>
+                {loading ? <Loading color="currentColor" size="sm" /> : 'Create Flow'}
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Modal>
+      )}
     </Fragment>
   );
 };
@@ -235,6 +368,11 @@ interface RegistrationFormData {
   mileage: number;
   licensePlate: string;
   yearsDriving: number;
+}
+
+interface CreateFlowFormData {
+  recipient: string;
+  flowRate: string;
 }
 
 export default RegisterPage;

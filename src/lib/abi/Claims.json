@@ -1,0 +1,252 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IConstantFlowAgreementV1",
+        "name": "cfa",
+        "type": "address"
+      },
+      {
+        "internalType": "contract ISuperToken",
+        "name": "acceptedToken",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "flowDetails",
+    "outputs": [
+      {
+        "internalType": "int96",
+        "name": "flowRate",
+        "type": "int96"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getClaims",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCost",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "holder",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "lastName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "policyID",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint8",
+        "name": "yearsDriving",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "age",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "idNum",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "insuree",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "carMake",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "carModel",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "carYear",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "carID",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "mileage",
+        "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "licensePlate",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "registrationTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "makePayment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "makePayout",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "policyID",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_carMake",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_carModel",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_carYear",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_mileage",
+        "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "_licensePlate",
+        "type": "string"
+      }
+    ],
+    "name": "registerCar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_lastName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_policyID",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_yearsDriving",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_age",
+        "type": "uint8"
+      }
+    ],
+    "name": "startClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
