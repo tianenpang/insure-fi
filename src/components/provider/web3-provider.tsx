@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
-import { apiProvider, configureChains, connectorsForWallets, RainbowKitProvider, wallet } from '@rainbow-me/rainbowkit';
-import { chain, createClient, WagmiProvider } from 'wagmi';
+import { connectorsForWallets, RainbowKitProvider, wallet } from '@rainbow-me/rainbowkit';
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { publicProvider } from 'wagmi/providers/public';
 import { useRainbowTheme } from '@hooks';
-import type { Chain } from '@rainbow-me/rainbowkit';
 import type { FC, ReactNode } from 'react';
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -11,15 +12,15 @@ const needsInjectedWalletFallback = Boolean(
 );
 
 const { chains, provider } = configureChains(
+  [chain.polygonMumbai],
   [
-    {
-      ...chain.polygonMumbai,
-      rpcUrls: {
-        default: 'https://speedy-nodes-nyc.moralis.io/1081efd32566a9cdb0bd5ccf/polygon/mumbai'
-      }
-    }
-  ],
-  [apiProvider.jsonRpc((chain: Chain) => ({ rpcUrl: chain.rpcUrls.default })), apiProvider.fallback()]
+    jsonRpcProvider({
+      rpc: () => ({
+        http: 'https://speedy-nodes-nyc.moralis.io/1081efd32566a9cdb0bd5ccf/polygon/mumbai'
+      })
+    }),
+    publicProvider()
+  ]
 );
 
 const connectors = connectorsForWallets([
@@ -50,11 +51,11 @@ export const Web3Provider: FC<Web3ProviderProps> = (props: Web3ProviderProps) =>
 
   return (
     <Fragment>
-      <WagmiProvider client={wagmiClient}>
+      <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={rainbowTheme} appInfo={{ appName: 'InsureFi' }}>
           {children}
         </RainbowKitProvider>
-      </WagmiProvider>
+      </WagmiConfig>
     </Fragment>
   );
 };
