@@ -15,9 +15,7 @@ const { chains, provider } = configureChains(
   [chain.polygonMumbai],
   [
     jsonRpcProvider({
-      rpc: () => ({
-        http: 'https://speedy-nodes-nyc.moralis.io/1081efd32566a9cdb0bd5ccf/polygon/mumbai'
-      })
+      rpc: () => ({ http: 'https://speedy-nodes-nyc.moralis.io/1081efd32566a9cdb0bd5ccf/polygon/mumbai' })
     }),
     publicProvider()
   ]
@@ -52,7 +50,14 @@ export const Web3Provider: FC<Web3ProviderProps> = (props: Web3ProviderProps) =>
   return (
     <Fragment>
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains} theme={rainbowTheme} appInfo={{ appName: 'InsureFi' }}>
+        <RainbowKitProvider
+          chains={chains}
+          theme={rainbowTheme}
+          appInfo={{
+            appName: 'InsureFi',
+            learnMoreUrl: 'https://insurefi.vercel.app'
+          }}
+        >
           {children}
         </RainbowKitProvider>
       </WagmiConfig>

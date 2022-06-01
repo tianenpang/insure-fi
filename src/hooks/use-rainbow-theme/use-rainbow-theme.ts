@@ -40,6 +40,9 @@ export const useRainbowTheme = (): Theme => {
       selectedOption: '0 8px 30px rgba(20, 20, 20, 0.15)',
       selectedWallet: '0 8px 30px rgba(20, 20, 20, 0.15)',
       walletLogo: '0 8px 30px rgba(20, 20, 20, 0.15)'
+    },
+    blurs: {
+      modalOverlay: 'saturate(100%) blur(20px)'
     }
   };
 };

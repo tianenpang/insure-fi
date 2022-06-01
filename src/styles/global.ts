@@ -10,15 +10,5 @@ export const globalStyles = globalCss({
   },
   'html, body, #__next': {
     width: '100%'
-  },
-  '.nextui-backdrop .nextui-backdrop-layer-blur': {
-    backdropFilter: 'saturate(100%) blur(20px)'
-  },
-  '._9pm4ki3': {
-    backdropFilter: 'saturate(100%) blur(20px)'
-  },
-  'div[data-rk]': {
-    lineHeight: 1,
-    userSelect: 'none'
   }
 });

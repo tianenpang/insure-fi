@@ -1,6 +1,7 @@
 export * from './heros';
 export * from './logos';
 export * from './icons';
+export * from './forms';
 export * from './header';
 export * from './footer';
 export * from './portal';
