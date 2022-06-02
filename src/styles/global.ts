@@ -10,5 +10,8 @@ export const globalStyles = globalCss({
   },
   'html, body, #__next': {
     width: '100%'
+  },
+  '.nextui-backdrop .nextui-backdrop-layer-blur': {
+    backdropFilter: 'saturate(100%) blur(20px)'
   }
 });
