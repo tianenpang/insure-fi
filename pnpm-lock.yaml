@@ -29,6 +29,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.27.0
   bn.js: ^5.2.1
   chai: ^4.3.6
+  date-fns: ^2.28.0
   dotenv: ^16.0.1
   eslint: ^8.16.0
   eslint-config-next: ^12.1.6
@@ -76,6 +77,7 @@ dependencies:
   '@react-aria/utils': 3.13.0_react@17.0.2
   '@superfluid-finance/ethereum-contracts': 1.2.2_loasscfliibvmmeqaoaj3rvate
   '@superfluid-finance/sdk-core': 0.4.2_fvukzu7z6wfjxvwqanosrw6g6m
+  date-fns: 2.28.0
   framer-motion: 6.3.6_sfoxds7t5ydpegc3knd667wn6m
   hardhat: 2.9.7_chai@4.3.6
   iron-session: 6.1.3_next@12.1.6
@@ -5297,6 +5299,11 @@ packages:
     resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
     engines: {node: '>= 12'}
 
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
+    engines: {node: '>=0.11'}
+    dev: false
+
   /death/1.1.0:
     resolution: {integrity: sha1-AaqcQB7dknUFFEcLgmY5DGbGcxg=}
     dev: true
@@ -7338,6 +7345,18 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: false
+
+  /follow-redirects/1.15.1_debug@4.3.4:
+    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -12181,7 +12200,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 3.0.2
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@4.3.4
       fs-extra: 0.30.0
       js-sha3: 0.8.0
       memorystream: 0.3.1

@@ -27,6 +27,7 @@
     "@react-aria/utils": "^3.13.0",
     "@superfluid-finance/ethereum-contracts": "^1.2.2",
     "@superfluid-finance/sdk-core": "^0.4.2",
+    "date-fns": "^2.28.0",
     "framer-motion": "^6.3.6",
     "hardhat": "^2.9.7",
     "iron-session": "^6.1.3",
