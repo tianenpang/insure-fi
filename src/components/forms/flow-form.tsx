@@ -62,7 +62,7 @@ export const FlowForm: FC<FlowFormProps> = (props: FlowFormProps) => {
 
   return (
     <Fragment>
-      <Modal open={isVisible} blur scroll closeButton aria-labelledby="create-flow-modal">
+      <Modal open={isVisible} blur closeButton aria-labelledby="create-flow-modal">
         <form onSubmit={handleSubmit(createFlowHandler)}>
           <Modal.Header>
             <Text size={24} b>

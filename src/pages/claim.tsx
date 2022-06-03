@@ -64,7 +64,7 @@ const ClaimPage: NextPage = () => {
         onError={(error: Error) => onClaimError(error)}
         onSuccess={(data: TransactionReceipt & ClaimFormData) => onClaimSuccess(data)}
       />
-      <Modal open={isVisible} blur scroll closeButton aria-labelledby="payout-modal">
+      <Modal open={isVisible} blur closeButton aria-labelledby="payout-modal">
         <Modal.Header css={{ flexDirection: 'column' }}>
           <Text size={24} b>
             Paying out

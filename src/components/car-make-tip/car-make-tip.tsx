@@ -8,7 +8,7 @@ export const CarMakeTip: FC<CarMakeTipProps> = (props: CarMakeTipProps) => {
 
   return (
     <Fragment>
-      <Card css={{ '& div:first-child': { flexDirection: 'row', justifyContent: 'space-between' } }}>
+      <Card css={{ '& div:first-child': { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' } }}>
         <Text>Supported: BMW, Mercedes, Audi, GMC, Chevrolet, Ford, Toyota, Honda, Nissan</Text>
         <MoreCircle style={{ flexShrink: 0 }} primaryColor="#F5A524" set="bold" />
       </Card>
