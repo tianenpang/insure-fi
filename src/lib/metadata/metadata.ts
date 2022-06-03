@@ -2,22 +2,22 @@ import { default as mime } from 'mime';
 import type { FilesSource } from 'nft.storage';
 
 export interface IMetadataPrams {
-  address: string;
-  policyID: string;
+  address?: string;
+  policyID?: number;
   description?: string;
   files?: File[] | undefined;
 }
 
 export interface IMetadata {
   address: string;
-  policyID: string;
+  policyID: number;
   description: string;
   files: File[];
 }
 
 export class Metadata implements IMetadata {
   address: string;
-  policyID: string;
+  policyID: number;
   description: string;
   files: File[];
 

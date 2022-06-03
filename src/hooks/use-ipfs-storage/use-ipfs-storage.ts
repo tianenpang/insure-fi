@@ -22,8 +22,8 @@ export const useIpfsStorage = () => {
       setIsStoreLoading(true);
       const cid = await nftStorage.storeDirectory(
         new Metadata({
-          address: metadata.address,
-          policyID: metadata.policyID,
+          address: metadata.address ?? '',
+          policyID: metadata.policyID ?? 0,
           description: 'InsureFi media files of claiming',
           files: metadata.files
         }).toFilesSource()
