@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Button, Container, Grid, Input, Loading, Radio, Spacer, Text } from '@nextui-org/react';
 import { mergeProps } from '@react-aria/utils';
 import { useForm } from 'react-hook-form';
@@ -28,6 +28,15 @@ const registrationContractConfig = {
 export const RegisterForm: FC<RegisterFormProps> = (props: RegisterFormProps) => {
   const { onError, onSuccess } = props;
 
+  const [errorReason, setErrorReason] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      errorReason && setErrorReason(undefined);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [errorReason]);
+
   const {
     register,
     handleSubmit,
@@ -36,7 +45,12 @@ export const RegisterForm: FC<RegisterFormProps> = (props: RegisterFormProps) =>
 
   const registration = useContractWrite(registrationContractConfig, 'registerCar', {
     onSettled: async (_, error) => {
-      error && (await onError(error));
+      if (error) {
+        const reason = (error as unknown as { reason: string }).reason;
+        const reasonString = reason.split(':')[1];
+        setErrorReason(reasonString);
+        await onError(error);
+      }
     }
   });
 
@@ -51,9 +65,13 @@ export const RegisterForm: FC<RegisterFormProps> = (props: RegisterFormProps) =>
   const registerHandler = async (data: RegistrationFormData) => {
     if (isValid) {
       const { carMake, carModel, carYear, mileage, licensePlate } = data;
-      await registration.writeAsync({
-        args: [carMake, carModel, carYear, mileage, licensePlate]
-      });
+      try {
+        await registration.writeAsync({
+          args: [carMake, carModel, carYear, mileage, licensePlate]
+        });
+      } catch (error) {
+        return;
+      }
     }
   };
 
@@ -208,7 +226,7 @@ export const RegisterForm: FC<RegisterFormProps> = (props: RegisterFormProps) =>
             </Grid>
             <Grid {...gridItemProps}>
               <Input
-                type="text"
+                type="number"
                 aria-label="Years Driving"
                 labelPlaceholder="Years Driving"
                 color={errors.yearsDriving && 'error'}
@@ -218,8 +236,8 @@ export const RegisterForm: FC<RegisterFormProps> = (props: RegisterFormProps) =>
           </Grid.Container>
         </Container>
         <Container as="section" css={{ dflex: 'center', py: '$12', textAlign: 'center' }} gap={0} md>
-          <Button type="submit" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }}>
-            {isLoading ? <Loading color="currentColor" size="sm" /> : 'Make Payment'}
+          <Button type="submit" color={errorReason ? 'error' : 'gradient'} size="lg" auto ripple={false} css={{ width: '100%' }}>
+            {isLoading ? <Loading color="currentColor" size="sm" /> : errorReason ? errorReason : 'Make Payment'}
           </Button>
         </Container>
       </form>
