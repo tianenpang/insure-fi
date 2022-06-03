@@ -76,9 +76,15 @@ const RegisterPage: NextPage = () => {
         onError={(error) => onFlowError(error)}
         onSuccess={(data: TransactionResponse) => onFlowSuccess(data)}
       />
-      <Modal open={isPaymentVisible} blur scroll closeButton aria-labelledby="payment-modal">
+      <Modal open={isPaymentVisible} blur closeButton aria-labelledby="payment-modal">
         {typeof insuree.data === 'undefined' || isLoading ? (
-          <Loading color="currentColor" size="md" />
+          <Modal.Body css={{ dflex: 'center' }}>
+            <Grid.Container css={{ p: 0 }} gap={4}>
+              <Grid md={12} lg={12} justify="center" alignItems="center">
+                <Loading color="currentColor" size="md" />
+              </Grid>
+            </Grid.Container>
+          </Modal.Body>
         ) : (
           <Fragment>
             <Modal.Header>
